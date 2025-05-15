@@ -231,7 +231,7 @@ class CartItemQuantityAPIView(APIView):
 
 class IncreaseCartItemQuantityAPIView(CartItemQuantityAPIView):
     """Increase cart item quantity by 1."""
-
+    permission_classes = [IsAuthenticated]
     def post(self, request, pk):
         """Increase the cart item quantity."""
         cart, product = self._get_cart_and_product(request.user, pk)
@@ -252,10 +252,7 @@ class IncreaseCartItemQuantityAPIView(CartItemQuantityAPIView):
 
 class DecreaseCartItemQuantityAPIView(CartItemQuantityAPIView):
     """Decrease cart item quantity by 1."""
-
-    throttle_classes = ['ScopedRateThrottle']
-    throttle_scope = 'cart_desc'
-    
+    permission_classes = [IsAuthenticated]
     def post(self, request, pk):
         """Decrease the cart item quantity."""
         cart, product = self._get_cart_and_product(request.user, pk)
