@@ -1,18 +1,8 @@
-# ecommerce/serializers.py
-
 from rest_framework import serializers
-from django.contrib.auth.models import User
-
 from accounts.serializers import UserSerializer
 from products.serializers import ProductSerializer
 from .models import  Order, OrderItem
-from discounts.models import DiscountRule, AppliedDiscount
-
-
-class DiscountRuleSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = DiscountRule
-        fields = '__all__'
+from discounts.models import AppliedDiscount
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
@@ -52,18 +42,6 @@ class OrderSerializer(serializers.ModelSerializer):
             OrderItem.objects.create(order=order, **item_data)
             
         return order
-
-
-# class OrderCreateSerializer(serializers.Serializer):
-#     items = serializers.ListField(
-#         child=serializers.DictField(
-#             child=serializers.IntegerField(),
-#             keys={
-#                 'product_id': serializers.IntegerField(),
-#                 'quantity': serializers.IntegerField(min_value=1)
-#             }
-#         )
-#     )
 
 class OrderItemInputSerializer(serializers.Serializer):
     product_id = serializers.IntegerField()

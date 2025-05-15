@@ -78,7 +78,7 @@ class CartListCreateAPIView(APIView):
             # Initialize and run discount engine
             discount_engine = DiscountEngine(None, request.user)
             discount_engine.cart_items = cart_items
-            discounted_result = discount_engine.get_cart_items()
+            discounted_result = discount_engine.get_cart_discounts()
 
             # Calculate totals
             original_total, total_discount, discounted_total = self._calculate_totals(cart_items, discounted_result)
